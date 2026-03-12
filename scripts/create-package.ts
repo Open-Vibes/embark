@@ -187,6 +187,12 @@ async function createPackage() {
     cloudflareUse = cloudflareAnswer.toLowerCase() !== "n";
   }
 
+  // Ask about Git submodules
+  const submoduleAnswer = await getInput(
+    "\n🔗 Does this package use Git submodules? [y/N]: ",
+  );
+  const useSubmodule = submoduleAnswer.toLowerCase() === "y";
+
   const packageDir = join(PACKAGES_DIR, camelCaseName);
   const srcDir = join(packageDir, "src");
 
@@ -222,6 +228,7 @@ async function createPackage() {
       title,
       ...(rootDomain ? { rootDomain: true } : { subdomain }),
       description,
+      useSubmodule,
     });
 
     try {

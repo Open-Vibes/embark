@@ -309,7 +309,47 @@ async function startSimulation() {
 
   void title; void description; // used for display, silences unused var
 
-  // Step 4: Deploy target
+  // Step 4: Root domain vs subdomain
+  let useRootDomain = false;
+  let finalSubdomain = camelName.toLowerCase();
+
+  const rootDomainIndex = await showMenu("🌍 Deploy to root domain (domain.com) instead of a subdomain?", ["No, use a subdomain (recommended)", "Yes, deploy to root domain"]);
+  await new Promise((r) => setTimeout(r, 400));
+
+  if (rootDomainIndex === 1) {
+    addLine({ type: "output", content: `  ⚠  WARNING: Only ONE package can own the root domain.`, class: "warning" });
+    addLine({ type: "output", content: `  → All other packages must use a subdomain.`, class: "warning" });
+    await new Promise((r) => setTimeout(r, 300));
+    const confirmRoot = await showMenu(`Deploy "${camelName}" to the root domain (yourdomain.com)?`, [
+      "No, use a subdomain instead  (recommended)",
+      `Yes, use root domain for "${camelName}"`,
+    ], [1]);
+    await new Promise((r) => setTimeout(r, 300));
+    if (confirmRoot === 1) {
+      useRootDomain = true;
+      addLine({ type: "output", content: `  ✓ Root domain confirmed.`, class: "success" });
+    } else {
+      addLine({ type: "output", content: `  ℹ Using subdomain deployment instead.`, class: "info" });
+    }
+  }
+
+  if (!useRootDomain) {
+    const defaultSubdomain = camelName.toLowerCase();
+    const validateSubdomainFn = (v: string): string | null => {
+      if (!/^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$/.test(v))
+        return "Invalid subdomain. Use lowercase letters, numbers, hyphens, and dots only.";
+      return null;
+    };
+    const subdomain = await askTextInput(`🌐 Subdomain [default: ${defaultSubdomain}]: `, (v) => {
+      if (!v) return null;
+      return validateSubdomainFn(v);
+    });
+    finalSubdomain = subdomain || defaultSubdomain;
+    if (!subdomain) addLine({ type: "output", content: `  → using default: ${finalSubdomain}`, class: "info" });
+    await new Promise((r) => setTimeout(r, 300));
+  }
+
+  // Step 5: Deploy target
   const deployIndex = await showMenu("🚀 Deploy target:", [
     "GCP - Google Cloud Run (generates workflow + Dockerfile)",
     "Netlify (generates workflow)",
@@ -321,7 +361,7 @@ async function startSimulation() {
   const targets = ["gcp", "netlify", "cloudflare-pages", "other"] as const;
   selectedDeploy = targets[deployIndex] ?? "gcp";
 
-  // Step 5: workflowGen — Yes is default (index 0)
+  // Step 6: workflowGen — Yes is default (index 0)
   const workflowGenIndex = await showMenu(
     selectedDeploy === "other"
       ? "🔄 Auto-generate a generic CI/CD workflow?"
@@ -331,73 +371,28 @@ async function startSimulation() {
   await new Promise((r) => setTimeout(r, 600));
   const workflowGen = workflowGenIndex === 0;
 
-  // Step 6: cloudflareUse (gcp/netlify only, cloudflare-pages has its own domain question)
+  // Step 7: cloudflareUse (gcp/netlify only, cloudflare-pages has its own domain question)
   let cloudflareUse = false;
-  let cfPagesDomainSetup = false;
   if (selectedDeploy === "cloudflare-pages") {
     const cfPagesIndex = await showMenu("🌐 Publish under a custom domain (e.g. app.yourdomain.com)?", ["Yes", "No"]);
     await new Promise((r) => setTimeout(r, 600));
-    cfPagesDomainSetup = cfPagesIndex === 0;
-    cloudflareUse = cfPagesDomainSetup;
+    cloudflareUse = cfPagesIndex === 0;
   } else if (selectedDeploy !== "other") {
     const cfIndex = await showMenu("☁️  Use Cloudflare for custom domain/DNS setup?", ["Yes", "No"]);
     await new Promise((r) => setTimeout(r, 600));
     cloudflareUse = cfIndex === 0;
   }
 
-  // Step 7: Domain setup — LAST (only when domain management is enabled)
-  const needsDomainSetup = selectedDeploy !== "cloudflare-pages"
-    ? cloudflareUse
-    : cfPagesDomainSetup;
-
-  let useRootDomain = false;
-  let finalSubdomain = camelName.toLowerCase();
-
-  if (needsDomainSetup) {
-    addLine({ type: "output", content: "  • Subdomain → app.yourdomain.com  (default, safe)", class: "info" });
-    addLine({ type: "output", content: "  • Root domain → yourdomain.com    (only one package can use this)", class: "info" });
-    const domainChoice = await showMenu("? Domain Setup — where should this package be deployed?", [
-      "Subdomain  (e.g. app.yourdomain.com)",
-      "Root domain  (yourdomain.com) — only one package can own this",
-    ], []);
-    await new Promise((r) => setTimeout(r, 400));
-
-    useRootDomain = domainChoice === 1;
-
-    if (useRootDomain) {
-      addLine({ type: "output", content: `  ⚠  WARNING: Only ONE package can own the root domain.`, class: "warning" });
-      addLine({ type: "output", content: `  → All other packages must use a subdomain.`, class: "warning" });
-      await new Promise((r) => setTimeout(r, 300));
-      const confirmRoot = await showMenu(`Deploy "${camelName}" to the root domain (yourdomain.com)?`, [
-        "No, use a subdomain instead  (recommended)",
-        `Yes, use root domain for "${camelName}"`,
-      ], [1]);
-      await new Promise((r) => setTimeout(r, 300));
-      if (confirmRoot !== 1) {
-        useRootDomain = false;
-        addLine({ type: "output", content: `  ℹ Using subdomain deployment instead.`, class: "info" });
-      } else {
-        addLine({ type: "output", content: `  ✓ Root domain confirmed.`, class: "success" });
-      }
-    }
-
-    if (!useRootDomain) {
-      const defaultSubdomain = camelName.toLowerCase();
-      const validateSubdomain = (v: string): string | null => {
-        if (!/^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/.test(v))
-          return "Invalid subdomain. Use lowercase letters, numbers and hyphens only.";
-        return null;
-      };
-      const subdomain = await askTextInput(`🌐 Subdomain [default: ${defaultSubdomain}]: `, (v) => {
-        if (!v) return null;
-        return validateSubdomain(v);
-      });
-      finalSubdomain = subdomain || defaultSubdomain;
-      if (!subdomain) addLine({ type: "output", content: `  → using default: ${finalSubdomain}`, class: "info" });
-      await new Promise((r) => setTimeout(r, 300));
-    }
+  // Step 8: useSubmodule
+  const submoduleIndex = await showMenu("🔗 Does this package use Git submodules?", ["No", "Yes"]);
+  await new Promise((r) => setTimeout(r, 400));
+  const useSubmodule = submoduleIndex === 1;
+  if (useSubmodule) {
+    addLine({ type: "output", content: `  ✓ Workflow will include submodules: recursive in checkout step.`, class: "success" });
     await new Promise((r) => setTimeout(r, 300));
   }
+
+  void useSubmodule; // used for workflow generation, silences unused var
 
   // Package creation
   addLine({ type: "output", content: `\n🚀 Creating package: ${camelName}`, class: "rocket" });
@@ -419,10 +414,12 @@ async function startSimulation() {
   addLine({ type: "output", content: `  ✓ Created: .embark.jsonc`, class: "success" });
   await new Promise((r) => setTimeout(r, 600));
 
-  if (needsDomainSetup) {
-    addLine({ type: "output", content: `  → ${useRootDomain ? "yourdomain.com (root domain)" : `${finalSubdomain}.yourdomain.com`}`, class: "info" });
-  } else if (selectedDeploy === "cloudflare-pages") {
+  if (useRootDomain) {
+    addLine({ type: "output", content: `  → yourdomain.com (root domain)`, class: "info" });
+  } else if (selectedDeploy === "cloudflare-pages" && !cloudflareUse) {
     addLine({ type: "output", content: `  → ${camelName.toLowerCase()}.pages.dev`, class: "info" });
+  } else {
+    addLine({ type: "output", content: `  → ${finalSubdomain}.yourdomain.com`, class: "info" });
   }
   await new Promise((r) => setTimeout(r, 300));
 
