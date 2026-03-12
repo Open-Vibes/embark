@@ -10,6 +10,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.how": "How It Works",
     "nav.features": "Features",
     "nav.liveExample": "Live Example",
+    "nav.utils": "Utils CLI",
     "nav.start": "Get Started",
 
     // Hero
@@ -188,6 +189,15 @@ const translations: Record<Language, Record<string, string>> = {
     "start.step5.title": "Commit & Deploy",
     "start.step5.desc": "Commit your code. Pre-commit hooks auto-generate workflows, Dockerfiles, and update the README. Push to deploy.",
 
+    // Utils CLI
+    "utils.title": "One Command for Everything",
+    "utils.subtitle": "All developer tools unified under a single interactive CLI. No need to remember script names — just run <code>bun run utils</code>.",
+    "utils.cmd.newPackage": "Interactive wizard to scaffold a new package with name, deploy target, subdomain, and full file structure.",
+    "utils.cmd.newDockerfile": "Generate Dockerfiles using your preferred AI CLI (Claude, Gemini, Copilot, Codex) or a smart default template.",
+    "utils.cmd.syncWorkflows": "Sync all GitHub Actions workflows with the latest template, preserving any <code># EMBARK:CUSTOM</code> blocks you added.",
+    "utils.cmd.init": "Initialize your fork: remove demo files, configure upstream remote, enable merge protection, optionally reset Git history.",
+    "utils.cmd.syncUpstream": "Pull improvements from the upstream Embark repo into your fork without re-introducing demo files or breaking your config.",
+
     // Footer
     "footer.tagline": "Ship vibe-coded apps with zero config.",
     "footer.project": "Project",
@@ -206,6 +216,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.how": "Como funciona",
     "nav.features": "Funcionalidades",
     "nav.liveExample": "Exemplo Real",
+    "nav.utils": "Utils CLI",
     "nav.start": "Começar",
 
     // Hero
@@ -383,6 +394,15 @@ const translations: Record<Language, Record<string, string>> = {
     "start.step4.desc": "Escreva seu código em <code>packages/my-app/src/</code>. Use qualquer framework — Vite, vanilla, React, o que quiser.",
     "start.step5.title": "Commit e Deploy",
     "start.step5.desc": "Faça commit. Os hooks de pre-commit geram workflows, Dockerfiles e atualizam o README. Push pra fazer deploy.",
+
+    // Utils CLI
+    "utils.title": "Um Comando para Tudo",
+    "utils.subtitle": "Todas as ferramentas de desenvolvimento unificadas em uma única CLI interativa. Sem precisar lembrar nomes de scripts — só rodar <code>bun run utils</code>.",
+    "utils.cmd.newPackage": "Assistente interativo para criar um novo pacote com nome, alvo de deploy, subdomínio e estrutura completa de arquivos.",
+    "utils.cmd.newDockerfile": "Gere Dockerfiles usando sua CLI de IA preferida (Claude, Gemini, Copilot, Codex) ou um template padrão inteligente.",
+    "utils.cmd.syncWorkflows": "Sincronize todos os GitHub Actions workflows com o template mais recente, preservando blocos <code># EMBARK:CUSTOM</code> que você adicionou.",
+    "utils.cmd.init": "Inicialize seu fork: remova arquivos demo, configure o remote upstream, habilite proteção de merge, opcionalmente reset o histórico Git.",
+    "utils.cmd.syncUpstream": "Traga melhorias do repo upstream do Embark para o seu fork sem re-introduzir arquivos demo ou quebrar sua config.",
 
     // Footer
     "footer.tagline": "Publique apps vibe-coded com zero config.",

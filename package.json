@@ -9,11 +9,8 @@
     "prepare": "husky",
     "postinstall": "husky",
     "test": "bun test --coverage scripts/__tests__",
-    "new-package": "bun scripts/create-package.ts",
-    "new-dockerfile": "bun scripts/generate-dockerfiles-ai.ts",
-    "sync-workflows": "bun scripts/sync-workflows-cli.ts",
+    "utils": "bun scripts/utils.ts",
     "init": "bun scripts/init.ts",
-    "sync-upstream": "bun scripts/sync-upstream.ts",
     "embark": "bun run --filter @embark/embark dev"
   },
   "devDependencies": {

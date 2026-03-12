@@ -286,11 +286,21 @@ embark/
 
 | Script | Command | Description |
 |--------|---------|-------------|
-| `new-package` | `bun run new-package` | Interactively create a new package |
-| `test` | `bun run test` | Run script tests with coverage |
-| `sync-workflows` | `bun run sync-workflows` | Sync workflows with template |
-| `sync-upstream` | `bun run sync-upstream` | Pull updates from upstream embark, preserving fork customizations |
+| `utils` | `bun run utils` | Unified interactive CLI — access all developer tools from one menu |
 | `init` | `bun run init` | Initialize repo for personal use (remove demo, configure upstream) |
+| `test` | `bun run test` | Run script tests with coverage |
+
+### Utils CLI Commands
+
+Run `bun run utils` and navigate the menu to access:
+
+| Command | Description |
+|---------|-------------|
+| `new-package` | Interactively create a new package |
+| `new-dockerfile` | Generate Dockerfiles with AI or default template |
+| `sync-workflows` | Sync workflows with latest template |
+| `init` | Initialize repo for personal use (remove demo, configure upstream) |
+| `sync-upstream` | Pull updates from upstream embark, preserving fork customizations |
 
 ## Tests
 

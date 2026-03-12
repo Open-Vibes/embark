@@ -64,6 +64,7 @@
           <li><a href="#why-embark" data-i18n="nav.why">Why Embark</a></li>
           <li><a href="#how-it-works" data-i18n="nav.how">How It Works</a></li>
           <li><a href="#features" data-i18n="nav.features">Features</a></li>
+          <li><a href="#utils-cli" data-i18n="nav.utils">Utils CLI</a></li>
           <li><a href="#live-example" data-i18n="nav.liveExample">Live Example</a></li>
           <li><div class="circle-version-badge"></div><a href="https://github.com/opvibes/embark/releases" target="_blank" rel="noopener" id="version-badge" class="version-badge" aria-label="Latest release"></a></li>
           <li><a href="#get-started" class="nav-cta" data-i18n="nav.start">Get Started</a></li>
@@ -730,6 +731,47 @@
           <div class="terminal-input-area">
             <div class="terminal-choices" id="choices-container" style="display: none;"></div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Utils CLI -->
+    <section id="utils-cli">
+      <h2 class="section-title" data-i18n="utils.title">One Command for Everything</h2>
+      <p class="section-subtitle" data-i18n="utils.subtitle">All developer tools unified under a single interactive CLI. No need to remember script names.</p>
+
+      <div class="utils-commands-grid">
+        <div class="utils-command-card">
+          <code class="utils-command-label">new-package</code>
+          <p class="utils-command-desc" data-i18n="utils.cmd.newPackage">Interactive wizard to scaffold a new package with name, deploy target, subdomain and full file structure.</p>
+        </div>
+        <div class="utils-command-card">
+          <code class="utils-command-label">new-dockerfile</code>
+          <p class="utils-command-desc" data-i18n="utils.cmd.newDockerfile">Generate Dockerfiles using your preferred AI CLI (Claude, Gemini, Copilot, Codex) or a smart default template.</p>
+        </div>
+        <div class="utils-command-card">
+          <code class="utils-command-label">sync-workflows</code>
+          <p class="utils-command-desc" data-i18n="utils.cmd.syncWorkflows">Sync all GitHub Actions workflows with the latest template, preserving any <code># EMBARK:CUSTOM</code> blocks you added.</p>
+        </div>
+        <div class="utils-command-card">
+          <code class="utils-command-label">init</code>
+          <p class="utils-command-desc" data-i18n="utils.cmd.init">Initialize your fork: remove demo files, configure upstream remote, enable merge protection, optionally reset Git history.</p>
+        </div>
+        <div class="utils-command-card">
+          <code class="utils-command-label">sync-upstream</code>
+          <p class="utils-command-desc" data-i18n="utils.cmd.syncUpstream">Pull improvements from the upstream Embark repo into your fork without re-introducing demo files or breaking your config.</p>
+        </div>
+      </div>
+
+      <div class="interactive-terminal-wrapper">
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+            <span class="terminal-title">embark-utils</span>
+          </div>
+          <div class="terminal-body" id="utils-terminal"></div>
         </div>
       </div>
     </section>
