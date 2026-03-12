@@ -138,6 +138,10 @@ const translations: Record<Language, Record<string, string>> = {
     "features.other.desc": 'Deploy to Vercel, Fly.io, AWS, or anywhere else. Set deploy to "other" and Embark skips workflows and Dockerfiles — you handle the rest.',
     "features.rootdomain.title": "Root Domain Deploy",
     "features.rootdomain.desc": 'One package can claim <code>domain.com</code> as its home. Set <code>rootDomain: true</code> in <code>.embark.jsonc</code> — only one package at a time. The CLI enforces this and warns before replacing.',
+    "features.submodule.title": "Git Submodule Support",
+    "features.submodule.desc": "Answer one question during package setup and Embark automatically adds <code>submodules: recursive</code> to the checkout step. Your workflows just work, even with nested repos.",
+    "features.cleaner.title": "Auto Cloudflare Cleanup",
+    "features.cleaner.desc": "Delete a package and Embark detects the orphan via <code>apps.jsonc</code>. A scheduled workflow automatically removes the Cloudflare Pages project, custom domain, and DNS record.",
 
     // Live Example
     "liveExample.title": "Embark, Deployed with Embark",
@@ -328,6 +332,10 @@ const translations: Record<Language, Record<string, string>> = {
     "features.other.desc": 'Deploy no Vercel, Fly.io, AWS ou qualquer outro lugar. Defina deploy como "other" e o Embark pula workflows e Dockerfiles — você cuida do resto.',
     "features.rootdomain.title": "Deploy no Domínio Raiz",
     "features.rootdomain.desc": 'Um pacote pode assumir <code>domain.com</code> como seu endereço principal. Defina <code>rootDomain: true</code> no <code>.embark.jsonc</code> — apenas um pacote por vez. A CLI garante isso e avisa antes de substituir.',
+    "features.submodule.title": "Suporte a Git Submodule",
+    "features.submodule.desc": "Responda uma pergunta durante a configuração do pacote e o Embark adiciona automaticamente <code>submodules: recursive</code> no step de checkout. Seus workflows funcionam, mesmo com repositórios aninhados.",
+    "features.cleaner.title": "Limpeza Automática do Cloudflare",
+    "features.cleaner.desc": "Exclua um pacote e o Embark detecta o órfão via <code>apps.jsonc</code>. Um workflow agendado remove automaticamente o projeto no Cloudflare Pages, o domínio customizado e o registro DNS.",
 
     // Live Example
     "liveExample.title": "Embark, Publicado com Embark",

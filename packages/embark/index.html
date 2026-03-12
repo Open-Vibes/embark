@@ -298,6 +298,16 @@
             <h3 data-i18n="features.rootdomain.title">Root Domain Deploy</h3>
             <p data-i18n="features.rootdomain.desc">One package can claim <code>domain.com</code> as its home. Set <code>rootDomain: true</code> in <code>.embark.jsonc</code> — only one package at a time. The CLI enforces this and warns before replacing.</p>
           </div>
+          <div class="feature-card carousel-slide">
+            <div class="feature-icon">🔗</div>
+            <h3 data-i18n="features.submodule.title">Git Submodule Support</h3>
+            <p data-i18n="features.submodule.desc">Answer one question during package setup and Embark automatically adds <code>submodules: recursive</code> to the checkout step. Your workflows just work, even with nested repos.</p>
+          </div>
+          <div class="feature-card carousel-slide">
+            <div class="feature-icon">🧹</div>
+            <h3 data-i18n="features.cleaner.title">Auto Cloudflare Cleanup</h3>
+            <p data-i18n="features.cleaner.desc">Delete a package and Embark detects the orphan via <code>apps.jsonc</code>. A scheduled workflow automatically removes the Cloudflare Pages project, custom domain, and DNS record.</p>
+          </div>
         </div>
 
         <!-- Navigation -->

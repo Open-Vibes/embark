@@ -10,5 +10,6 @@
   "title": "Embark vibe codes applications",
   "description": "Embark your vibe codes applications with a fast deploy and configurations",
   "rootDomain": false,
-  "subdomain": "embark"
+  "subdomain": "embark",
+  "useSubmodule": false
 }
