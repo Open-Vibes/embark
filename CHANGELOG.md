@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.0](https://github.com/opvibes/embark/compare/v1.0.1...v1.1.0) (2026-03-12)
+
+
+### Features
+
+* separar workflows em jobs por etapa com passagem segura de variáveis ([763b744](https://github.com/opvibes/embark/commit/763b744eca4ac7598be3cc405a8c614bc8ebc89d))
+* separar workflows em jobs por etapa com passagem segura de vars ([0bebe8d](https://github.com/opvibes/embark/commit/0bebe8dee9b107245c906b4c043b6ac8cfb86dfe))
+* **ui:** versão badge com círculo animado e estilos aprimorados ([3e94347](https://github.com/opvibes/embark/commit/3e943479011fcf32512a011fc648f55c1c72495e))
+
 ## [1.0.1](https://github.com/opvibes/embark/compare/v1.0.0...v1.0.1) (2026-03-12)
 
 
