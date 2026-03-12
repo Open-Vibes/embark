@@ -59,7 +59,11 @@ jobs:
             -H "Authorization: Bearer ${CF_TOKEN}" \
             -H "Content-Type: application/json")
 
-          EXISTING=$(echo "$RESPONSE" | jq -r '.result.name // empty')
+          if [ -z "$RESPONSE" ]; then
+            echo "Empty response from Cloudflare API — check CF_TOKEN_PAGES and CF_ACCOUNT_ID secrets"
+            exit 1
+          fi
+          EXISTING=$(echo "$RESPONSE" | jq -r '.result.name // empty' 2>/dev/null || echo "")
 
           if [ -n "$EXISTING" ] && [ "$EXISTING" != "null" ]; then
             echo "✓ Project already exists: $EXISTING"
